@@ -46,6 +46,7 @@
     <Content Include="default.aspx" />
     <Content Include="global.asax" />
     <Content Include="login.aspx" />
+    <Content Include="services\DemoService.svc" />
     <Content Include="SignOut.aspx" />
     <Content Include="UserControls\FooterContent.ascx" />
     <Content Include="UserControls\HeaderContent.ascx" />

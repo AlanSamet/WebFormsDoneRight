@@ -1,0 +1,45 @@
+<%@ ServiceHost Service="DemoService" Factory="System.ServiceModel.Activation.WebServiceHostFactory" %>
+
+using System;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
+using System.ServiceModel.Web;
+
+[ServiceContract(Namespace = "")]
+[AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
+public class DemoService
+{
+    [DataContract]
+    public class ResponseData
+    {
+        [DataMember]
+        public string Message { get; set; }
+        
+        [DataMember]
+        public DateTime Timestamp { get; set; }
+        
+        [DataMember]
+        public int Length { get; set; }
+    }
+
+    [OperationContract]
+    [WebGet(UriTemplate = "DoSomething/{param}", ResponseFormat = WebMessageFormat.Json)]
+    public ResponseData DoSomething(string param)
+    {
+        return new ResponseData
+        {
+            Message = String.Format("Parameter: {0}", param),
+            Timestamp = DateTime.UtcNow,
+            Length = param != null ? param.Length : 0
+        };
+    }
+
+    /*[OperationContract]
+    [WebInvoke]
+    public string EchoWithPost(string s)
+    {
+        return "You said " + s;
+    }*/
+}
